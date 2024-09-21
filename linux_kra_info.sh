@@ -22,7 +22,7 @@ echo ------------------
 echo ''
 echo 002. Date
 echo ''
-echo `date +'%Y/%m/%d %k:%M:%S %a'`
+echo `date +'%Y/%m/%d %H:%M:%S %a'`
 
 echo ''
 echo -------------------------------------------------------------------------------------------------
@@ -34,7 +34,7 @@ uname -a
 echo ''
 echo -----------------------------------------------------------------------------------------------
 echo ''
-echo 004. hugepages_setting.sh recomended huge pages size. on host=`hostname`  date=`date +'%Y/%m/%d %k:%M:%S %a'`
+echo 004. hugepages_setting.sh recomended huge pages size. on host=`hostname`  date=`date +'%Y/%m/%d %H:%M:%S %a'`
 echo ''
 
 #
@@ -74,7 +74,7 @@ sleep ${lag_debug_delay}
 echo ''
 echo '------------------------------------------------------------'
 echo ''
-echo '005. -- Huge pages per Oracle DB:' on host=`hostname`  date=`date +'%Y/%m/%d %k:%M:%S %a'`
+echo '005. -- Huge pages per Oracle DB:' on host=`hostname`  date=`date +'%Y/%m/%d %H:%M:%S %a'`
 echo ''
 echo '--'
 
@@ -116,7 +116,7 @@ sleep ${lag_debug_delay}
 echo ''
 echo --------------------------------------------------------------------
 echo ''
-echo 010. /proc/meminfo  grep Huge on host=`hostname`  date=`date +'%Y/%m/%d %k:%M:%S %a'`
+echo 010. /proc/meminfo  grep Huge on host=`hostname`  date=`date +'%Y/%m/%d %H:%M:%S %a'`
 echo ''
 cat /proc/meminfo | grep Huge
 
@@ -126,7 +126,7 @@ cat /proc/meminfo | grep Huge
 echo ''
 echo --------------------------------------------------------------------
 echo ''
-echo 011. /proc/meminfo   on host=`hostname`  date=`date +'%Y/%m/%d %k:%M:%S %a'`
+echo 011. /proc/meminfo   on host=`hostname`  date=`date +'%Y/%m/%d %H:%M:%S %a'`
 echo ''
 cat /proc/meminfo 
 
@@ -136,7 +136,7 @@ cat /proc/meminfo
 echo ''
 echo --------------------------------------------------------------------
 echo ''
-echo '020. ---- Oracle instances total count: ' on host=`hostname`  date=`date +'%Y/%m/%d %k:%M:%S %a'`
+echo '020. ---- Oracle instances total count: ' on host=`hostname`  date=`date +'%Y/%m/%d %H:%M:%S %a'`
 echo ''
 echo '--'
 
@@ -146,7 +146,7 @@ ps -ef | grep smon | grep -v grep | wc -l
 echo ''
 echo --------------------------------------------------------------------
 echo ''
-echo '021. ---- DBs list with owner and PID:'  on host=`hostname`  date=`date +'%Y/%m/%d %k:%M:%S %a'`
+echo '021. ---- DBs list with owner and PID:'  on host=`hostname`  date=`date +'%Y/%m/%d %H:%M:%S %a'`
 echo ''
 echo '--'
 ps -ef | grep smon | grep -v grep | awk '{print $1 " " $2 " " $NF}'
@@ -198,7 +198,7 @@ cat /proc/meminfo | grep MemTotal
 echo ''
 echo '------------------------------------------------------------'
 echo ''
-echo 050.2 free -h  on host=`hostname`  date=`date +'%Y/%m/%d %k:%M:%S %a'`
+echo 050.2 free -h  on host=`hostname`  date=`date +'%Y/%m/%d %H:%M:%S %a'`
 echo ''
 free -h
 
@@ -206,7 +206,7 @@ free -h
 echo ''
 echo '------------------------------------------------------------'
 echo ''
-echo 056. ipcs -m  on host=`hostname`  date=`date +'%Y/%m/%d %k:%M:%S %a'`
+echo 056. ipcs -m  on host=`hostname`  date=`date +'%Y/%m/%d %H:%M:%S %a'`
 echo ''
 ipcs -sm
 
@@ -214,7 +214,7 @@ ipcs -sm
 echo ''
 echo '------------------------------------------------------------'
 echo ''
-echo 057. ipcs -m sum Gbytes on host=`hostname`  date=`date +'%Y/%m/%d %k:%M:%S %a'`
+echo 057. ipcs -m sum Gbytes on host=`hostname`  date=`date +'%Y/%m/%d %H:%M:%S %a'`
 echo ''
 
 IPCS_M_SUM_GB=`ipcs -m | awk '{sum += $5} END {print sum}'`
@@ -235,7 +235,7 @@ ps -ef | grep smon | grep -v grep |awk '{ print $2 }'
 echo ''
 echo --------------------------------------------------------------------
 echo ''
-echo 061. PID of first smon processes of Oracle database on host=`hostname`  date=`date +'%Y/%m/%d %k:%M:%S %a'`:
+echo 061. PID of first smon processes of Oracle database on host=`hostname`  date=`date +'%Y/%m/%d %H:%M:%S %a'`:
 echo ''
 
 ps -ef | grep smon | grep -v grep |awk '{ print $2 }' | tail -1
@@ -243,7 +243,7 @@ export ORACLE_SID_SMON_PID=`ps -ef | grep smon | grep -v grep |awk '{ print $2 }
 echo ORACLE_SID_SMON_PID=${ORACLE_SID_SMON_PID}
 
 echo ''
-echo Oracle SID of this process sid on host=`hostname`  date=`date +'%Y/%m/%d %k:%M:%S %a'`: 
+echo Oracle SID of this process sid on host=`hostname`  date=`date +'%Y/%m/%d %H:%M:%S %a'`: 
 ps -ef | grep ${ORACLE_SID_SMON_PID} | grep -v grep | awk '{print $NF}' | sed 's/.........//'
 
 export ORACLE_SID_ITEM1=`ps -ef | grep ${ORACLE_SID_SMON_PID} | grep -v grep | awk '{print $NF}' | sed 's/.........//'`
@@ -344,7 +344,7 @@ export OS_MEM_TOTAL_GB=`expr $(($OS_MEM_TOTAL_MB / 1024 ))`
 echo HOST `hostname` RAM memory in OS ${OS_MEM_TOTAL_GB} Gb, Hugetlb=${OS_HUGE_PAGES_GB} Gb, free_h_free=${free_h_free}, free_h_shared=${free_h_shared}, free_h_buff_cache=${free_h_buff_cache}, free_h_available=${free_h_available}  > last_host_info_`hostname`.txt
 #cat last_host_info_`hostname`.txt
 
-echo `date +'%Y/%m/%d %k:%M:%S %a'` `hostname` memory in OS ${OS_MEM_TOTAL_GB} Gb, Hugetlb=${OS_HUGE_PAGES_GB} Gb, free_h_free=${free_h_free}, free_h_shared=${free_h_shared}, free_h_buff_cache=${free_h_buff_cache}, free_h_available=${free_h_available} >> host_info_`hostname`_history.txt
+echo `date +'%Y/%m/%d %H:%M:%S %a'` `hostname` memory in OS ${OS_MEM_TOTAL_GB} Gb, Hugetlb=${OS_HUGE_PAGES_GB} Gb, free_h_free=${free_h_free}, free_h_shared=${free_h_shared}, free_h_buff_cache=${free_h_buff_cache}, free_h_available=${free_h_available} >> host_info_`hostname`_history.txt
 
 
 

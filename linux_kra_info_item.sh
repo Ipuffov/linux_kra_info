@@ -6,14 +6,14 @@ PID_KRAYNOV="$1"
 echo ''
 echo --------------------------------------------------------------------
 echo ''
-echo Viewing PID=${PID_KRAYNOV} on host=`hostname`  date=`date +'%Y/%m/%d %k:%M:%S %a'`
+echo Viewing PID=${PID_KRAYNOV} on host=`hostname`  date=`date +'%Y/%m/%d %H:%M:%S %a'`
 echo Process:
 ps -ef | grep ${PID_KRAYNOV} | grep -v grep | grep -v kraynov
 
 echo ''
 echo --------------------------------------------------------------------
 echo ''
-echo 301.0 ORACLE_SID of current PID on host=`hostname`  date=`date +'%Y/%m/%d %k:%M:%S %a'`:
+echo 301.0 ORACLE_SID of current PID on host=`hostname`  date=`date +'%Y/%m/%d %H:%M:%S %a'`:
 unset  ORACLE_SID_KRA
 ORACLE_SID_KRA=`ps -q ${PID_KRAYNOV} -eo cmd | grep -v slub_flushwq | tail -1  | sed s/.........//`
 echo ORACLE_SID_KRA=${ORACLE_SID_KRA}
@@ -22,7 +22,7 @@ echo ORACLE_SID_KRA=${ORACLE_SID_KRA}
 
 echo ''
 echo --------------------------------------------------------------------
-echo 301.1 finding enviroment variables of current PID=${PID_KRAYNOV} ORACLE_SID_KRA=${ORACLE_SID_KRA} on host=`hostname`  date=`date +'%Y/%m/%d %k:%M:%S %a'`:
+echo 301.1 finding enviroment variables of current PID=${PID_KRAYNOV} ORACLE_SID_KRA=${ORACLE_SID_KRA} on host=`hostname`  date=`date +'%Y/%m/%d %H:%M:%S %a'`:
 echo ''
 strings /proc/${PID_KRAYNOV}/environ | grep ORA
 
@@ -34,7 +34,7 @@ strings /proc/${PID_KRAYNOV}/status | grep VmSize
 
 echo ''
 echo --------------------------------------------------------------------
-echo 301.3 Start date from ps -eo lstart,cmd,pid grep ${ORACLE_SID_SMON_PID} for ORACLE_SID=${ORACLE_SID_KRA} on host=`hostname`  date=`date +'%Y/%m/%d %k:%M:%S %a'`:
+echo 301.3 Start date from ps -eo lstart,cmd,pid grep ${ORACLE_SID_SMON_PID} for ORACLE_SID=${ORACLE_SID_KRA} on host=`hostname`  date=`date +'%Y/%m/%d %H:%M:%S %a'`:
 echo ''
 ps -eo lstart,cmd,pid | grep ${PID_KRAYNOV} | grep -v grep
 
@@ -43,7 +43,7 @@ ps -eo lstart,cmd,pid | grep ${PID_KRAYNOV} | grep -v grep
 
 echo ''
 echo --------------------------------------------------------------------
-echo 301.4 Start date from ps -eo lstart,cmd,pid grep ${ORACLE_SID_SMON_PID} for ORACLE_SID=${ORACLE_SID_KRA} on host=`hostname`  date=`date +'%Y/%m/%d %k:%M:%S %a'`:
+echo 301.4 Start date from ps -eo lstart,cmd,pid grep ${ORACLE_SID_SMON_PID} for ORACLE_SID=${ORACLE_SID_KRA} on host=`hostname`  date=`date +'%Y/%m/%d %H:%M:%S %a'`:
 echo ''
 
 echo Column number 5 is the VSS memory size of SGA of this db in Kbytes:
@@ -73,20 +73,20 @@ ORACLE_MEM_PERCENT1=`expr $(((ORACLE_SID_MEM_KBYTES*100) / $ORACLE_OS_MEM_TOTAL_
 echo ''
 echo --------------------------------------------------------------------
 echo ''
-echo 301.5 OS eaten memory for this PID ${ORACLE_SID_SMON_PID} for ORACLE_SID=${ORACLE_SID_KRA} on host=`hostname`  date=`date +'%Y/%m/%d %k:%M:%S %a'`:
+echo 301.5 OS eaten memory for this PID ${ORACLE_SID_SMON_PID} for ORACLE_SID=${ORACLE_SID_KRA} on host=`hostname`  date=`date +'%Y/%m/%d %H:%M:%S %a'`:
 echo 301.6 Echo so we can say that Oracle instance ${ORACLE_SID_ITEM1}  eat ${ORACLE_SID_MEM_GB} Gb of total in OS ${ORACLE_OS_MEM_TOTAL_GB} Gb, = ${ORACLE_MEM_PERCENT1} %
 
 
 echo ''
 echo --------------------------------------------------------------------
 echo ''
-echo 301.7 Memory usage from Oracle DB if ORACLE_SID and other env set and sqlplus / as sysdba working OK on host=`hostname`  date=`date +'%Y/%m/%d %k:%M:%S %a'`
+echo 301.7 Memory usage from Oracle DB if ORACLE_SID and other env set and sqlplus / as sysdba working OK on host=`hostname`  date=`date +'%Y/%m/%d %H:%M:%S %a'`
 
 
 echo ''
 echo --------------------------------------------------------------------
 echo ''
-echo 301.11 sysresv on host=`hostname`  date=`date +'%Y/%m/%d %k:%M:%S %a'`
+echo 301.11 sysresv on host=`hostname`  date=`date +'%Y/%m/%d %H:%M:%S %a'`
 echo ''
 
 sysresv
@@ -95,7 +95,7 @@ sysresv
 echo ''
 echo --------------------------------------------------------------------
 echo ''
-echo 301.12 sysresv light mode on host=`hostname`  date=`date +'%Y/%m/%d %k:%M:%S %a'`
+echo 301.12 sysresv light mode on host=`hostname`  date=`date +'%Y/%m/%d %H:%M:%S %a'`
 echo ''
 
 
@@ -107,7 +107,7 @@ echo ''
 echo ''
 echo --------------------------------------------------------------------
 echo ''
-echo 301.13 Next will sqlplus info for ORACLE_SID=${ORACLE_SID_KRA} on host=`hostname`  date=`date +'%Y/%m/%d %k:%M:%S %a'`
+echo 301.13 Next will sqlplus info for ORACLE_SID=${ORACLE_SID_KRA} on host=`hostname`  date=`date +'%Y/%m/%d %H:%M:%S %a'`
 echo ''
 
 
@@ -170,7 +170,7 @@ EOF
 echo ''
 echo --------------------------------------------------------------------
 echo ''
-echo 401. Run sqlplus as sysdba linux_kra_info_item.sql for current PID=${PID_KRAYNOV} ORACLE_SID_KRA=${ORACLE_SID_KRA} on host=`hostname`  date=`date +'%Y/%m/%d %k:%M:%S %a'`:
+echo 401. Run sqlplus as sysdba linux_kra_info_item.sql for current PID=${PID_KRAYNOV} ORACLE_SID_KRA=${ORACLE_SID_KRA} on host=`hostname`  date=`date +'%Y/%m/%d %H:%M:%S %a'`:
 sqlplus / as sysdba @linux_kra_info_item.sql
 
 
@@ -197,7 +197,7 @@ cat ${ALERT_LOG_LOCATION} | grep PAGES -a5 -b6 | tail -14
 
 echo ----------------------------------------------------------------------------------------------------
 echo ''
-echo 600. End of item ORACLE_SID_KRA=${ORACLE_SID_KRA} PID=${PID_KRAYNOV} on host=`hostname`  date=`date +'%Y/%m/%d %k:%M:%S %a'`
+echo 600. End of item ORACLE_SID_KRA=${ORACLE_SID_KRA} PID=${PID_KRAYNOV} on host=`hostname`  date=`date +'%Y/%m/%d %H:%M:%S %a'`
 echo ''
 echo ------------------------------------------------------------------------------------------------------------------------------------------------
 
