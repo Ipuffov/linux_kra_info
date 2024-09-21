@@ -1,3 +1,4 @@
 delploy.cmd
 *.txt
 .\Backups
+/Backups
