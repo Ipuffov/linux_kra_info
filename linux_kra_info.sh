@@ -206,10 +206,21 @@ free -h
 echo ''
 echo '------------------------------------------------------------'
 echo ''
-echo 056. ipcs -sm  on host=`hostname`  date=`date +'%Y/%m/%d %k:%M:%S %a'`
+echo 056. ipcs -m  on host=`hostname`  date=`date +'%Y/%m/%d %k:%M:%S %a'`
 echo ''
 ipcs -sm
 
+
+echo ''
+echo '------------------------------------------------------------'
+echo ''
+echo 057. ipcs -m sum Gbytes on host=`hostname`  date=`date +'%Y/%m/%d %k:%M:%S %a'`
+echo ''
+
+IPCS_M_SUM_GB=`ipcs -m | awk '{sum += $5} END {print sum}'`
+IPCS_M_SUM_GB=`expr $(($IPCS_M_SUM_GB / 1024 /1024 /1024 ))`
+
+echo $IPCS_M_SUM_GB Gb
 
 echo ''
 echo --------------------------------------------------------------------
