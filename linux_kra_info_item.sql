@@ -1,3 +1,5 @@
+-- 2024.09.19 puff@mail.ru for Oracle 19 ok
+
 spool db_item.log
 
 set trimspool on

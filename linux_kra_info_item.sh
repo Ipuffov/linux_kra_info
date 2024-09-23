@@ -1,5 +1,5 @@
 #!/bin/bash
-# 2024.09.19 akra for linux 6-7
+# 2024.09.19 puff@mail.ru for linux 6-7
 
 PID_KRAYNOV="$1"
 

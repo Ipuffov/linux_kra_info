@@ -1,6 +1,6 @@
 #!/bin/bash
 echo ''
-echo 2024.09.20 Script "$(basename "$0")" for linux 6-7 and Oracle database info '(run with oracle user, not root, with env for db)'
+echo 2024.09.20 puff@mail.ru Script "$(basename "$0")" for linux 6-7 and Oracle database info '(run with oracle user, not root, with env for db)'
 
 file_size_b=`du -b "$(basename "$0")" | cut -f1`
 file_date=`stat $(basename "$0") | grep Modify`

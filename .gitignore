@@ -3,3 +3,4 @@ delploy.cmd
 .\Backups
 /Backups
 deploy.cmd
+*.rar
