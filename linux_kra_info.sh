@@ -217,8 +217,8 @@ echo ''
 echo 057. ipcs -m sum Gbytes on host=`hostname`  date=`date +'%Y/%m/%d %H:%M:%S %a'`
 echo ''
 
-IPCS_M_SUM_GB=`ipcs -m | awk '{sum += $5} END {print sum}'`
-IPCS_M_SUM_GB=`expr $(($IPCS_M_SUM_GB / 1024 /1024 /1024 ))`
+IPCS_M_SUM_B=`ipcs -m | awk '{sum += $5} END {print sum}'`
+IPCS_M_SUM_GB=`expr $(($IPCS_M_SUM_B / 1024 /1024 /1024 ))`
 
 echo $IPCS_M_SUM_GB Gb
 
@@ -259,7 +259,7 @@ echo ''
 # script exit after this command 
 
 
-export ORACLE_SID_MEM_KBYTES=`top -p ${ORACLE_SID_SMON_PID} -n 1 | tail -3 | head -1 |  awk '{print $5'}`
+export ORACLE_SID_MEM_KBYTES=`top -p ${ORACLE_SID_SMON_PID} -n 1 | tail -3 | head -1 |  awk '{print $5}'`
 echo ${ORACLE_SID_MEM_KBYTES} kbytes
 
 export ORACLE_SID_MEM_MB=`expr $(($ORACLE_SID_MEM_KBYTES / 1024 ))`
@@ -316,8 +316,6 @@ echo ''
 for pid in `ps -eaf | grep smon | grep -v grep | grep -v kra |  awk '{print $2}'` ; do sh linux_kra_info_item.sh $pid ; done
 
 
-echo ''
-echo --------------------------------------------------------------------
 echo 1001. Host cumulative info
 echo ''
 
@@ -348,32 +346,45 @@ echo `date +'%Y/%m/%d %H:%M:%S %a'` `hostname` memory in OS ${OS_MEM_TOTAL_GB} G
 
 
 
-echo ------------------------------------------------------------------------------------------------------------
-
 echo ''                                                                     >  report_result_`hostname`.txt
-echo 2000. Results of script "$(basename "$0")": 
+echo 2000. Results of script "$(basename "$0")":                            >>  report_result_`hostname`.txt
 
-echo ''                                                                     >  report_result_`hostname`.txt
-echo ------------------------------------------------------------------------------------------------------------   >>  report_result_`hostname`.txt
 echo ''                                                                     >>  report_result_`hostname`.txt
-cat last_host_info_`hostname`.txt >>  report_result_`hostname`.txt
+echo --2----------------------------------------------------------------------------------------------------------   >>  report_result_`hostname`.txt
 echo ''                                                                     >>  report_result_`hostname`.txt
-echo --- Instances list:   >>  report_result_`hostname`.txt
+cat last_host_info_`hostname`.txt                                           >>  report_result_`hostname`.txt
 echo ''                                                                     >>  report_result_`hostname`.txt
-
-cat db_item_result_`hostname`_*.log >>  report_result_`hostname`.txt
-
+echo --- Instances list:                                                    >>  report_result_`hostname`.txt
+echo ''                                                                     >>  report_result_`hostname`.txt
+cat db_item_result_`hostname`_*.log                                         >>  report_result_`hostname`.txt
+echo ''                                                                     >>  report_result_`hostname`.txt
 echo -------------------------------------------------------------------------------------------------------------------------------------------   >>  report_result_`hostname`.txt
+
+
+
+echo ''                                                                     >>  report_result_`hostname`.txt
+echo Sum of SGA_PGA of these DBs GBytes: 'cat db_item_result_`hostname`*.log | awk {sum += $4} END {print sum}' Gb >>  report_result_`hostname`.txt
 echo ''                                                                     >>  report_result_`hostname`.txt
 
+cat db_item_result_`hostname`*.log | awk '{sum += $4} END {print sum}'      >>  report_result_`hostname`.txt
+
+
+echo ''                                                                     >>  report_result_`hostname`.txt
+echo 'Sum of ipcs -m segments GBytes in OS: ipcs -m | awk {sum += $5} END {print sum}' >> report_result_`hostname`.txt
+echo ''                                                                     >>  report_result_`hostname`.txt
+IPCS_M_SUM_B=`ipcs -m | awk '{sum += $5} END {print sum}'`
+IPCS_M_SUM_MB=`expr $(($IPCS_M_SUM_B / 1024 /1024  ))`
+IPCS_M_SUM_GB=`expr $(($IPCS_M_SUM_B / 1024 /1024 /1024 ))`
+
+echo ${IPCS_M_SUM_GB} GBytes                                                       >>  report_result_`hostname`.txt
+echo ${IPCS_M_SUM_MB} MBytes                                                       >>  report_result_`hostname`.txt
+
+#cat db_item_result_`hostname`*.log | awk '{sum += $4} END {print sum}'
+
+echo ''                                                                     >>  report_result_`hostname`.txt
+echo '050.4 free -h' >> report_result_`hostname`.txt                        >>  report_result_`hostname`.txt
+free -h                                                                     >>  report_result_`hostname`.txt
+echo ''                                                                     >>  report_result_`hostname`.txt
 
 cat report_result_`hostname`.txt
-
-echo ''                                                                     >>  report_result_`hostname`.txt
-echo Sum of SGA_PGA of these DBs: 'cat db_item_result_oradesk225*.log | awk {sum += $4} END {print sum}'
-echo ''                                                                     >>  report_result_`hostname`.txt
-
-cat db_item_result_`hostname`*.log | awk '{sum += $4} END {print sum}'
-
-echo ''                                                                     >>  report_result_`hostname`.txt
 
